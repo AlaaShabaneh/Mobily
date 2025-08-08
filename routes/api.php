@@ -24,6 +24,10 @@ use App\Http\Controllers\WarrantyCompanyController;
 use App\Http\Controllers\WarrantyDetailController;
 use App\Http\Controllers\WarrantyRatingController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Api\AuthController;
+
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
 Route::post('/users', [UserController::class, 'store']);
 
