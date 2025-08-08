@@ -1,0 +1,62 @@
+// routes/api.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DeviceController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderStatusController;
+use App\Http\Controllers\ProviderController;
+use App\Http\Controllers\WarrantyClaimController;
+use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CreditController;
+use App\Http\Controllers\DeviceListingController;
+use App\Http\Controllers\DeviceRatingController;
+use App\Http\Controllers\DeviceSpecificationValueController;
+use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\ImageController;
+use App\Http\Controllers\ModelController;
+use App\Http\Controllers\PriceController;
+use App\Http\Controllers\SpecificationController;
+use App\Http\Controllers\StockEntryController;
+use App\Http\Controllers\TypeController;
+use App\Http\Controllers\WarrantyCompanyController;
+use App\Http\Controllers\WarrantyDetailController;
+use App\Http\Controllers\WarrantyRatingController;
+use App\Http\Controllers\UserController;
+
+Route::post('/users', [UserController::class, 'store']);
+
+Route::get('/ping', function () {
+    return response()->json(['message' => 'pong']);
+    
+});
+Route::apiResource('devices', DeviceController::class);
+Route::apiResource('orders', OrderController::class);
+Route::apiResource('order-statuses', OrderStatusController::class);
+Route::apiResource('providers', ProviderController::class);
+Route::apiResource('warranty-claims', WarrantyClaimController::class);
+Route::apiResource('brands', BrandController::class);
+Route::apiResource('categories', CategoryController::class);
+Route::apiResource('credits', CreditController::class);
+Route::apiResource('device-listings', DeviceListingController::class);
+Route::apiResource('device-ratings', DeviceRatingController::class);
+Route::apiResource('device-specification-values', DeviceSpecificationValueController::class);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('favorites/add', [FavoriteController::class, 'add']);
+    Route::post('favorites/remove', [FavoriteController::class, 'remove']);
+    Route::get('favorites', [FavoriteController::class, 'list']);
+});
+Route::prefix('devices/{device}')->group(function () {
+    Route::get('images', [ImageController::class, 'index']);
+    Route::post('images', [ImageController::class, 'store']);
+});
+Route::delete('images/{id}', [ImageController::class, 'destroy']);
+Route::apiResource('models', ModelController::class);
+Route::apiResource('prices', PriceController::class);
+Route::apiResource('specifications', SpecificationController::class);
+Route::apiResource('stock-entries', StockEntryController::class);
+Route::apiResource('types', TypeController::class);
+Route::apiResource('warranty-companies', WarrantyCompanyController::class);
+Route::apiResource('warranty-details', WarrantyDetailController::class);
+Route::apiResource('warranty-ratings', WarrantyRatingController::class);
