@@ -17,7 +17,7 @@ class DeviceSpecificationValue extends Model
 
     public function device(): BelongsTo
     {
-        return $this->belongsTo(Device::class);
+        return $this->belongsTo(DeviceVariant::class);
     }
 
     public function specification(): BelongsTo

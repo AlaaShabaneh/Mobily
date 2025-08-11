@@ -15,6 +15,6 @@ class Type extends Model
     // إذا يوجد علاقة مع أجهزة مثلاً
     public function devices()
     {
-        return $this->hasMany(Device::class, 'type_id');
+        return $this->hasMany(DeviceVariant::class, 'type_id');
     }
 }

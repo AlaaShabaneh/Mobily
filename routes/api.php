@@ -1,8 +1,7 @@
-// routes/api.php
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DeviceController;
+
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderStatusController;
 use App\Http\Controllers\ProviderController;
@@ -25,6 +24,9 @@ use App\Http\Controllers\WarrantyDetailController;
 use App\Http\Controllers\WarrantyRatingController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\DeviceSerialController;
+use App\Http\Controllers\DeviceVariantController;
+use App\Http\Controllers\DeviceVariantSpecificationController;
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
@@ -35,7 +37,11 @@ Route::get('/ping', function () {
     return response()->json(['message' => 'pong']);
     
 });
-Route::apiResource('devices', DeviceController::class);
+
+Route::apiResource('device-variants', DeviceVariantController::class);
+
+Route::apiResource('device-variant-specifications', DeviceVariantSpecificationController::class);
+
 Route::apiResource('orders', OrderController::class);
 Route::apiResource('order-statuses', OrderStatusController::class);
 Route::apiResource('providers', ProviderController::class);
@@ -64,3 +70,6 @@ Route::apiResource('types', TypeController::class);
 Route::apiResource('warranty-companies', WarrantyCompanyController::class);
 Route::apiResource('warranty-details', WarrantyDetailController::class);
 Route::apiResource('warranty-ratings', WarrantyRatingController::class);
+
+Route::apiResource('device-serials', DeviceSerialController::class);
+Route::get('device-serials/search', [DeviceSerialController::class, 'search']);

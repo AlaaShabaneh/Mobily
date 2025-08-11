@@ -18,6 +18,6 @@ class Price extends Model
     // العلاقة مع الجهاز (Device)
     public function device()
     {
-        return $this->belongsTo(Device::class);
+        return $this->belongsTo(DeviceVariant::class);
     }
 }

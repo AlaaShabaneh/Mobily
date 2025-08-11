@@ -22,6 +22,6 @@ class DeviceModel extends EloquentModel
     // مثال: علاقة مع الأجهزة (devices) إذا أردت لاحقاً
     public function devices()
     {
-        return $this->hasMany(Device::class);
+        return $this->hasMany(DeviceVariant::class);
     }
 }

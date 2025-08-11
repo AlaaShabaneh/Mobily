@@ -22,7 +22,7 @@ class StockEntry extends Model
 
     public function device()
     {
-        return $this->belongsTo(Device::class);
+        return $this->belongsTo(DeviceVariant::class);
     }
 
     public function warrantyCompany()
@@ -32,6 +32,12 @@ class StockEntry extends Model
 
     public function supplier()
     {
-        return $this->belongsTo(Provider::class, 'supplier_id');
+        return $this->belongsTo(Supplier::class, 'supplier_id');
     }
+
+    public function serials()
+    {
+        return $this->hasMany(DeviceSerial::class);
+    }
+
 }

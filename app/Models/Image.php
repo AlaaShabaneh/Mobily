@@ -16,8 +16,8 @@ class Image extends Model
     public $timestamps = false; // لأنه في الجدول لا يوجد created_at و updated_at
 
     // العلاقة مع الجهاز Device (كل صورة تنتمي لجهاز واحد)
-    public function device()
+    public function model()
     {
-        return $this->belongsTo(Device::class);
+        return $this->belongsTo(DeviceModel::class);
     }
 }

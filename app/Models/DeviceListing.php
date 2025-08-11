@@ -20,12 +20,12 @@ class DeviceListing extends Model
 
     public function device()
     {
-        return $this->belongsTo(Device::class);
+        return $this->belongsTo(DeviceVariant::class);
     }
 
     public function warrantyCompany()
     {
-        return $this->belongsTo(Provider::class, 'warranty_company_id'); // عدّل اسم الموديل إذا لزم
+        return $this->belongsTo(Supplier::class, 'warranty_company_id'); // عدّل اسم الموديل إذا لزم
     }
     public function orderItems()
     {

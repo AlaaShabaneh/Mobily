@@ -9,15 +9,28 @@ class StockEntryController extends Controller
 {
     public function index()
     {
-        $entries = StockEntry::with(['device', 'warrantyCompany', 'supplier'])->get();
+        $entries = StockEntry::with([
+            'device',
+            'warrantyCompany',
+            'supplier',
+            'serials' // إضافة السيريالات
+        ])->get();
+
         return response()->json($entries);
     }
 
     public function show($id)
     {
-        $entry = StockEntry::with(['device', 'warrantyCompany', 'supplier'])->findOrFail($id);
+        $entry = StockEntry::with([
+            'device',
+            'warrantyCompany',
+            'supplier',
+            'serials' // إضافة السيريالات
+        ])->findOrFail($id);
+
         return response()->json($entry);
     }
+
 
     public function store(Request $request)
     {
@@ -26,13 +39,24 @@ class StockEntryController extends Controller
             'warranty_company_id' => 'nullable|integer|exists:warranty_companies,id',
             'supplier_id' => 'nullable|integer|exists:suppliers,id',
             'quantity' => 'required|integer|min:1',
-            'purchase_price' => 'nullable|numeric|min:0',
+            'purchase_price' => 'nullable|numeric',
             'purchase_date' => 'nullable|date',
             'notes' => 'nullable|string',
+            'serial_numbers' => 'required|array|min:1',
+            'serial_numbers.*' => 'string|max:100|distinct'
         ]);
 
-        $entry = StockEntry::create($validated);
-        return response()->json($entry, 201);
+        // تخزين الدفعة
+        $stockEntry = StockEntry::create($validated);
+
+        // إدخال السيريالات
+        foreach ($validated['serial_numbers'] as $serial) {
+            $stockEntry->serials()->create([
+                'serial_number' => $serial
+            ]);
+        }
+
+        return response()->json($stockEntry->load('serials'), 201);
     }
 
     public function update(Request $request, $id)
