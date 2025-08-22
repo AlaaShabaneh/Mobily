@@ -11,6 +11,7 @@ class DeviceModel extends EloquentModel
     protected $fillable = [
         'brand_id',
         'name',
+        'type_id',
     ];
 
     // علاقة النموذج بالعلامة التجارية (Brand)
@@ -19,9 +20,21 @@ class DeviceModel extends EloquentModel
         return $this->belongsTo(Brand::class);
     }
 
+
+    public function type()
+    {
+        return $this->belongsTo(Type::class);
+    }
+
     // مثال: علاقة مع الأجهزة (devices) إذا أردت لاحقاً
     public function devices()
     {
         return $this->hasMany(DeviceVariant::class);
     }
+
+    public function images()
+    {
+        return $this->hasMany(Image::class, 'model_id');
+    }
+
 }

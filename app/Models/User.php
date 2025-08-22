@@ -53,7 +53,7 @@ class User extends Authenticatable
     }
     public function favoriteDevices()
     {
-        return $this->belongsToMany(Device::class, 'favorites', 'user_id', 'device_id')->withTimestamps();
+        return $this->belongsToMany(DeviceVariant::class, 'favorites', 'user_id', 'device_id')->withTimestamps();
     }
     
 }

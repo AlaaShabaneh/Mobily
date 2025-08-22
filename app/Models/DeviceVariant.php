@@ -10,11 +10,16 @@ class DeviceVariant extends Model
 
     protected $fillable = [
         'model_id',
-        'type_id',
+        'title',
     ];
 
     public function specifications()
     {
         return $this->hasMany(DeviceVariantSpecification::class, 'variant_id');
+    }
+
+    public function model()
+    {
+        return $this->belongsTo(DeviceModel::class, 'model_id');
     }
 }

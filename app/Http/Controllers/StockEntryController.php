@@ -35,7 +35,7 @@ class StockEntryController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'device_id' => 'required|integer|exists:devices,id',
+            'device_id' => 'required|integer|exists:device_variants,id',
             'warranty_company_id' => 'nullable|integer|exists:warranty_companies,id',
             'supplier_id' => 'nullable|integer|exists:suppliers,id',
             'quantity' => 'required|integer|min:1',
@@ -64,7 +64,7 @@ class StockEntryController extends Controller
         $entry = StockEntry::findOrFail($id);
 
         $validated = $request->validate([
-            'device_id' => 'sometimes|required|integer|exists:devices,id',
+            'device_id' => 'sometimes|required|integer|exists:device_variants,id',
             'warranty_company_id' => 'nullable|integer|exists:warranty_companies,id',
             'supplier_id' => 'nullable|integer|exists:suppliers,id',
             'quantity' => 'sometimes|required|integer|min:1',

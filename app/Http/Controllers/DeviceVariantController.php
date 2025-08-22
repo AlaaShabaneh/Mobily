@@ -10,7 +10,9 @@ class DeviceVariantController extends Controller
     // عرض جميع المتغيرات
     public function index()
     {
-        $variants = DeviceVariant::with('specifications')->get();
+        $variants = DeviceVariant::with('model', 'specifications.specification')->get();
+        //$variant = Variant::with(['model', 'specifications.specification:id,title'])->find($id);
+
         return response()->json($variants);
     }
 
@@ -19,7 +21,7 @@ class DeviceVariantController extends Controller
     {
         $validated = $request->validate([
             'model_id' => 'required|integer',
-            'type_id' => 'required|integer',
+            'title' => 'nullable|string|max:50',
         ]);
 
         $variant = DeviceVariant::create($validated);
@@ -41,7 +43,7 @@ class DeviceVariantController extends Controller
 
         $validated = $request->validate([
             'model_id' => 'sometimes|integer',
-            'type_id' => 'sometimes|integer',
+            'title' => 'nullable|string|max:50',
         ]);
 
         $variant->update($validated);

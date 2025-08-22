@@ -8,16 +8,16 @@ class Image extends Model
     protected $table = 'images';
 
     protected $fillable = [
-        'device_id',
+        'model_id',
         'url',
         'is_main',
     ];
 
-    public $timestamps = false; // لأنه في الجدول لا يوجد created_at و updated_at
+    public $timestamps = false;
 
-    // العلاقة مع الجهاز Device (كل صورة تنتمي لجهاز واحد)
+    // العلاقة مع الموديل DeviceModel (كل صورة تنتمي لموديل واحد)
     public function model()
     {
-        return $this->belongsTo(DeviceModel::class);
+        return $this->belongsTo(DeviceModel::class, 'model_id');
     }
 }

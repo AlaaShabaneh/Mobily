@@ -61,7 +61,14 @@ Route::prefix('devices/{device}')->group(function () {
     Route::get('images', [ImageController::class, 'index']);
     Route::post('images', [ImageController::class, 'store']);
 });
+
+Route::get('/images', [ImageController::class, 'index']);
+Route::post('/images', [ImageController::class, 'store']);
+Route::delete('/images/{id}', [ImageController::class, 'destroy']);
 Route::delete('images/{id}', [ImageController::class, 'destroy']);
+Route::put('/images/{id}/set-main', [ImageController::class, 'setMain']);
+Route::put('images/{id}/set-main', [ImageController::class, 'setMain']);
+
 Route::apiResource('models', ModelController::class);
 Route::apiResource('prices', PriceController::class);
 Route::apiResource('specifications', SpecificationController::class);

@@ -18,4 +18,9 @@ class DeviceVariantSpecification extends Model
     {
         return $this->belongsTo(DeviceVariant::class, 'variant_id');
     }
+
+    public function specification()
+    {
+        return $this->belongsTo(Specification::class);
+    }
 }

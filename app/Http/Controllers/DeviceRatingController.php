@@ -15,7 +15,7 @@ class DeviceRatingController extends Controller
     {
         $data = $request->validate([
             'user_id' => 'required|exists:users,id',
-            'device_id' => 'required|exists:devices,id',
+            'device_id' => 'required|exists:device_variants,id',
             'rating' => 'required|integer|min:1|max:5',
             'comment' => 'nullable|string',
         ]);

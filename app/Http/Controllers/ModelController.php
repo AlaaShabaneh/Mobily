@@ -10,7 +10,7 @@ class ModelController extends Controller
     public function index()
     {
         // إرجاع كل النماذج مع العلامة التجارية المرتبطة
-        $models = DeviceModel::with('brand')->get();
+        $models = DeviceModel::with('brand', 'type')->get();
         return response()->json($models);
     }
 
@@ -25,6 +25,7 @@ class ModelController extends Controller
         $validated = $request->validate([
             'brand_id' => 'required|exists:brands,id',
             'name' => 'required|string|max:100',
+            'type_id' => 'sometimes|integer',
         ]);
 
         $model = DeviceModel::create($validated);
@@ -38,6 +39,7 @@ class ModelController extends Controller
         $validated = $request->validate([
             'brand_id' => 'sometimes|exists:brands,id',
             'name' => 'sometimes|string|max:100',
+            'type_id' => 'sometimes|integer',
         ]);
 
         $model->update($validated);

@@ -14,7 +14,7 @@ class Category extends Model
     public $timestamps = false; // إذا لم يكن هناك created_at و updated_at
     public function devices()
     {
-        return $this->belongsToMany(Device::class, 'device_categories', 'category_id', 'device_id');
+        return $this->belongsToMany(DeviceVariant::class, 'device_categories', 'category_id', 'device_id');
     }
 
 }

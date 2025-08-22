@@ -14,7 +14,7 @@ class DeviceSpecificationValueController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'device_id' => 'required|exists:devices,id',
+            'device_id' => 'required|exists:device_variants,id',
             'specification_id' => 'required|exists:specifications,id',
             'value' => 'nullable|string|max:255',
         ]);

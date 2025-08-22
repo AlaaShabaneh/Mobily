@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\DeviceListing;
-use App\Models\Device;
-use App\Models\Provider;
 use Illuminate\Http\Request;
 
 class DeviceListingController extends Controller
@@ -20,7 +18,7 @@ class DeviceListingController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'device_id' => 'required|exists:devices,id',
+            'device_id' => 'required|exists:device_variants,id',
             'seller_company' => 'nullable|string|max:100',
             'price' => 'required|numeric',
             'currency' => 'nullable|string|max:10',
@@ -48,7 +46,7 @@ class DeviceListingController extends Controller
         $listing = DeviceListing::findOrFail($id);
 
         $validated = $request->validate([
-            'device_id' => 'sometimes|exists:devices,id',
+            'device_id' => 'sometimes|exists:device_variants,id',
             'seller_company' => 'nullable|string|max:100',
             'price' => 'sometimes|numeric',
             'currency' => 'nullable|string|max:10',

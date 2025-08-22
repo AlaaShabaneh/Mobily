@@ -8,11 +8,18 @@ use Illuminate\Http\Request;
 class DeviceVariantSpecificationController extends Controller
 {
     // عرض جميع المواصفات المرتبطة بالمتغيرات
-    public function index()
+    public function index(Request $request)
     {
-        $specifications = DeviceVariantSpecification::all();
-        return response()->json($specifications);
+        $query = DeviceVariantSpecification::with('specification'); ;
+
+        // إذا فيه variant_id في الـ query string، نفلتر عليه
+        if ($request->has('variant_id')) {
+            $query->where('variant_id', $request->variant_id);
+        }
+
+        return response()->json($query->get());
     }
+
 
     // إنشاء قيمة مواصفة جديدة لمتغير جهاز
     public function store(Request $request)

@@ -2,8 +2,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Device;
 
 class FavoriteController extends Controller
 {
@@ -11,7 +9,7 @@ class FavoriteController extends Controller
     public function add(Request $request)
     {
         $request->validate([
-            'device_id' => 'required|exists:devices,id',
+            'device_id' => 'required|exists:device_variants,id',
         ]);
 
         $user = $request->user(); // تأكد من استخدام auth middleware
@@ -25,7 +23,7 @@ class FavoriteController extends Controller
     public function remove(Request $request)
     {
         $request->validate([
-            'device_id' => 'required|exists:devices,id',
+            'device_id' => 'required|exists:device_variants,id',
         ]);
 
         $user = $request->user();

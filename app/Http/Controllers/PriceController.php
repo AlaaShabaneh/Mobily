@@ -25,7 +25,7 @@ class PriceController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'device_id' => 'required|exists:devices,id',
+            'device_id' => 'required|exists:device_variants,id',
             'price' => 'required|numeric',
             'valid_from' => 'nullable|date',
             'valid_to' => 'nullable|date|after_or_equal:valid_from',
@@ -41,7 +41,7 @@ class PriceController extends Controller
         $price = Price::findOrFail($id);
 
         $validated = $request->validate([
-            'device_id' => 'sometimes|exists:devices,id',
+            'device_id' => 'sometimes|exists:device_variants,id',
             'price' => 'sometimes|numeric',
             'valid_from' => 'nullable|date',
             'valid_to' => 'nullable|date|after_or_equal:valid_from',
